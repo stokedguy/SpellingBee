@@ -31,8 +31,16 @@
 import sys
 import json
 
+if len(sys.argv) < 2:
+    print("Usage: python create_json.py <path_to_word_file>")
+    sys.exit(1)
+
 words = open(sys.argv[1])
 word_list = words.readlines()
-json_words = {word.rstrip(): "1" for word in word_list}
+max_lines = 100
+limited_word_list = word_list[:max_lines]
+#json_words = {word.rstrip(): "1" for word in word_list}
+json_words = {word.rstrip(): "1" for word in limited_word_list}
 
 print(json.dumps(json_words, indent=4))
+print(f"Number of entries in JSON: {len(json_words)}")
